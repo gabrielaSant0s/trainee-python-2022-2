@@ -1,4 +1,3 @@
-import math
 
 class Point():
     """
@@ -22,8 +21,33 @@ class Point():
     >>> a.x
     3.0
     """
-    pass
+    def __init__(self, x, y):
+        self._x = x
+        self._y = y
+        self.float_coordinate()
 
+    def float_coordinate(self):
+        if type(self.x) != float or type(self.y) != float:
+            raise ValueError("both coordinates value must be float")
+
+    @property
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self,x):
+        self._x = x
+
+    @property
+    def y(self):
+        return self._y
+
+    @y.setter
+    def y(self,y):
+        self._y = y
+
+    def __repr__(self) -> str:
+        return f'Point({self._x}, {self._y})'
 
 def euclidean_distance(a, b):
     """
@@ -39,7 +63,14 @@ def euclidean_distance(a, b):
         ...
     ValueError: b must be a Point
     """
-    return 0.0
+    if type(a) != Point:
+        raise ValueError('a must be a Point')
+    elif type(b) != Point:
+        raise ValueError('b must be a Point')
+    
+    distance = ((b.x - a.x)**2+(b.y - a.y)**2)**(1/2)
+
+    return distance
 
 def manhattan_distance(a, b):
     """
@@ -55,7 +86,13 @@ def manhattan_distance(a, b):
         ...
     ValueError: b must be a Point
     """
-    return 0.0
+    if type(a) != Point:
+        raise ValueError('a must be a Point')
+    elif type(b) != Point:
+        raise ValueError('b must be a Point')
+    
+    distance = ((a.x - b.x)**2)**(1/2) + ((a.y - b.y)**2)**(1/2)
+    return distance
 
 if __name__ == "__main__":
     import doctest
